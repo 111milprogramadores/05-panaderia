@@ -9,22 +9,21 @@ package poo.panaderia;
  *
  * @author Candelaria
  */
-public class ComposicionCaja implements Comparable {
+public class MovimientoDinero {
     private int cantidad;
     private Dinero dinero;
 
     /**
     * Constructor por Defecto.
     */
-    public ComposicionCaja() {
+    public MovimientoDinero() {
     }
 
-    /**
-    * Constructor con parámetros, con todos los atributos de la clase ComposicionCaja.     
-     * @param cantidad     
-     * @param dinero     
+    /** Constructor con parámetros, con todos los atributos de la clase DineroRecibido.
+     * @param cantidad           
+     * @param dinero           
     */
-    public ComposicionCaja(int cantidad, Dinero dinero) {
+    public MovimientoDinero(int cantidad, Dinero dinero) {
         this.cantidad = cantidad;
         this.dinero = dinero;
     }
@@ -47,20 +46,8 @@ public class ComposicionCaja implements Comparable {
 
     @Override
     public String toString() {
-        return this.cantidad + " de " + this.dinero.getDenominacion() + "\n"; //To change body of generated methods, choose Tools | Templates.
+        return this.cantidad + " de " + this.dinero.getDenominacion() + " - valor: "+ this.dinero.getValor()*this.cantidad; //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public int compareTo(Object o) {
-        ComposicionCaja c;
-        c = (ComposicionCaja)o;
-        if (c.dinero.equals(this.dinero))
-            return 0;
-        else{
-            return -1;
-        }
-    }
-         
     
     
 }
