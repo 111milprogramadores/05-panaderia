@@ -58,4 +58,14 @@ public class DetalleProductoCobrado {
         this.producto = producto;
     }
     
+    public BigDecimal calcularSubTotal() {
+         double subtotal= producto.getPrecio().doubleValue()* this.cantidad;
+         return BigDecimal.valueOf(subtotal);
+    }
+
+    @Override
+    public String toString() {
+        return this.producto.getNombre() + " - " + "Cant:" + this.cantidad + " Monto Detalle: " + this.monto; //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

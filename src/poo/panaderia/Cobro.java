@@ -5,7 +5,9 @@
  */
 package poo.panaderia;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ import java.util.List;
  * @author Candelaria
  */
 public class Cobro {
-    private List<DineroRecibido> dineroRecibido;
+    private List<MovimientoDinero> dineroRecibido;
     private List<DetalleProductoCobrado> detalleCobro;
 
     /**
@@ -29,16 +31,16 @@ public class Cobro {
      * @param dineroRecibido
      * @param detalleCobro
     */
-    public Cobro(List<DineroRecibido> dineroRecibido, List<DetalleProductoCobrado> detalleCobro) {
+    public Cobro(ArrayList<MovimientoDinero> dineroRecibido, ArrayList<DetalleProductoCobrado> detalleCobro) {
         this.dineroRecibido = dineroRecibido;
         this.detalleCobro = detalleCobro;
     }
 
-    public List<DineroRecibido> getDineroRecibido() {
+    public List<MovimientoDinero> getDineroRecibido() {
         return dineroRecibido;
     }
 
-    public void setDineroRecibido(List<DineroRecibido> dineroRecibido) {
+    public void setDineroRecibido(ArrayList<MovimientoDinero> dineroRecibido) {
         this.dineroRecibido = dineroRecibido;
     }
 
@@ -46,8 +48,31 @@ public class Cobro {
         return detalleCobro;
     }
 
-    public void setDetalleCobro(List<DetalleProductoCobrado> detalleCobro) {
+    public void setDetalleCobro(ArrayList<DetalleProductoCobrado> detalleCobro) {
         this.detalleCobro = detalleCobro;
     }
+ 
+    public float calcularVuelto(float importeTotalCompra)
+    {
+        Iterator i = getDineroRecibido().iterator();
+        float montoRecibido=0;
+        while (i.hasNext())
+        {
+            MovimientoDinero movimientoDinero =(MovimientoDinero) i.next();            
+            montoRecibido += movimientoDinero.getCantidad() * movimientoDinero.getDinero().getValor();
+        }
+        if(montoRecibido == importeTotalCompra)
+            return 0;
+        else
+            return montoRecibido - importeTotalCompra;
+    }
     
+    public float calcularImporteTotal()
+    {
+        float total=0;
+        for (DetalleProductoCobrado detalle: detalleCobro) {
+            total += detalle.calcularSubTotal().floatValue();
+        }
+        return total;
+    }
 }
