@@ -12,10 +12,12 @@ import java.math.BigDecimal;
  * @author Candelaria
  */
 public class Producto {
+    
     private String descripcion;
     private String nombre;
     private BigDecimal precio;
     private UnidadMedida unidadMedida;
+    private String rutaFoto;
 
     /**
     * Constructor por Defecto
@@ -24,7 +26,7 @@ public class Producto {
     }
 
     /**
-    * Constructor con parámetros, sin incluir atributos referenciales.
+     * Constructor con parámetros, sin incluir atributos referenciales.
      * @param descripcion     
      * @param nombre     
      * @param precio     
@@ -36,19 +38,35 @@ public class Producto {
     }
 
     /**
-    * Constructor con parámetros, con todos los atributos de la clase Producto.
+     * Constructor con parámetros, con todos los atributos de la clase Producto.
      * @param descripcion     
      * @param nombre     
      * @param precio     
+     * @param rutaFoto     
      * @param unidadMedida     
     */
-    public Producto(String descripcion, String nombre, BigDecimal precio, UnidadMedida unidadMedida) {
+    public Producto(String descripcion, String nombre, BigDecimal precio, String rutaFoto, UnidadMedida unidadMedida) {
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.precio = precio;
+        this.rutaFoto = rutaFoto;
         this.unidadMedida = unidadMedida;
     }
-        
+    
+   /**
+     * Constructor con parámetros, sin incluir atributos referenciales.
+     * @param descripcion     
+     * @param nombre     
+     * @param precio     
+     * @param rutaFoto     
+    */
+    public Producto(String descripcion, String nombre, BigDecimal precio, String rutaFoto) {
+        this.descripcion = descripcion;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.rutaFoto = rutaFoto;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -80,4 +98,13 @@ public class Producto {
     public void setUnidadMedida(UnidadMedida unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
+
+    public String getRutaFoto() {
+        return rutaFoto;
+    }
+
+    public void setRutaFoto(String rutaFoto) {
+        this.rutaFoto = rutaFoto;
+    }
+    
 }

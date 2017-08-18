@@ -6,9 +6,7 @@
 package poo.panaderia;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -111,46 +109,64 @@ public class Caja {
         this.composiciones = composiciones;
     }
     
-    //Devuelve un arraylist con size()=0 si el vuelto es cero.
-    public ArrayList<MovimientoDinero> ingresarDineroYDarVuelto(ArrayList<MovimientoDinero> dineroRecibido, float montoVuelto)
+    /**
+     * Devuelve un arraylist con size 0 si el vuelto es cero.
+     * 
+     * @param dineroRecibido
+     * @param montoVuelto
+     * @return 
+     */
+    public List<MovimientoDinero> ingresarDineroYDarVuelto (List<MovimientoDinero> dineroRecibido, float montoVuelto)
     {
         ArrayList<MovimientoDinero> billetesVuelto= new ArrayList();
                
-        if(montoVuelto ==0)
-        {
-           this.ingresarDineroACaja(dineroRecibido);
-        }
-        else
-        {
+        this.ingresarDineroACaja(dineroRecibido);
+        
+        if (montoVuelto > 0) {
             billetesVuelto= this.calcularBilletesVuelto(montoVuelto);
         }
+        
         return billetesVuelto;
         
     }
     
-    public void ingresarDineroACaja(ArrayList<MovimientoDinero> dineroRecibido)
-    {
-        //Sumar dinero a la caja
-        Iterator i = dineroRecibido.iterator();  
-        Iterator iCaja = this.getComposiciones().iterator();
-        while (i.hasNext()){
-            //Para cada dinero recibido, recorre la caja hasta encontrar el objeto de composicionCaja del Dinero,
-            //correspondiente al dinero recibido y actualiza la cantidad del mismo.
-            MovimientoDinero movimientoDinero =(MovimientoDinero) i.next();
-            while(iCaja.hasNext())
-            {
-                ComposicionCaja composicionCaja = (ComposicionCaja) iCaja.next();
-                if(movimientoDinero.getDinero().equals(composicionCaja.getDinero()))
+    public void ingresarDineroACaja (List<MovimientoDinero> dineroRecibido) {
+        // Sumar dinero a la caja
+        Iterator<MovimientoDinero> iterDinero = dineroRecibido.iterator();  
+        Iterator<ComposicionCaja> iterCaja = this.getComposiciones().iterator();
+        
+        // incializamos las nuevas composiciones a agregar en caso de no existir
+        List<ComposicionCaja> nuevasComposiciones = new ArrayList<>();
+        
+        while (iterDinero.hasNext()) {
+            // Para cada dinero recibido, recorre la caja hasta encontrar el objeto de composicionCaja del Dinero,
+            // correspondiente al dinero recibido y actualiza la cantidad del mismo.
+            MovimientoDinero movimientoDinero = iterDinero.next();
+            boolean encontrado = false;
+            
+            while (iterCaja.hasNext()) {
+                ComposicionCaja composicionCaja = iterCaja.next();
+                
+                if (movimientoDinero.getDinero().equals(composicionCaja.getDinero())) {
                     composicionCaja.setCantidad(composicionCaja.getCantidad() + movimientoDinero.getCantidad());
-                  
-            }       
-            //Si termina de recorrer la caja y no encuentra un objeto composicionCaja creado para ese dinero debe crearlo y
-            //Agregarlo a la caja
-             ComposicionCaja composicionCaja = new ComposicionCaja();
-             composicionCaja.setCantidad(movimientoDinero.getCantidad());
-             composicionCaja.setDinero(movimientoDinero.getDinero());
-             this.composiciones.add(composicionCaja);
+                    encontrado = true;
+                    break;
+                }
+            }
+            
+            // Si termina de recorrer la caja y no encuentra un objeto composicionCaja creado para ese dinero debe crearlo y
+            // agregarlo a la caja
+            if (!encontrado) {
+                ComposicionCaja composicionCaja = new ComposicionCaja();
+                composicionCaja.setCantidad(movimientoDinero.getCantidad());
+                composicionCaja.setDinero(movimientoDinero.getDinero());
+                
+                nuevasComposiciones.add(composicionCaja);
+            }
         }
+        
+        // agregamos las nuevas composiciones a la caja si hubieran
+        this.composiciones.addAll(nuevasComposiciones);
     }
     
     public void sacarDineroDeCaja(List<MovimientoDinero> dineroRecibido)
@@ -214,24 +230,25 @@ public class Caja {
                                 MovimientoDinero mov = new MovimientoDinero(1,composicionCaja.getDinero());
                                 movDineroVuelto.add(mov);
                             }
-                            else{
+                            else {
+                                boolean encontrado = false;
                                 for (MovimientoDinero movDinero: movDineroVuelto) {
-                                    if(movDinero.getDinero().equals(composicionCaja.getDinero()))
-                                    {
+                                    if(movDinero.getDinero().equals(composicionCaja.getDinero())) {
                                         movDinero.setCantidad(movDinero.getCantidad()+1);
-                                    }
-                                    else
-                                    {
-                                        MovimientoDinero mov = new MovimientoDinero(1,composicionCaja.getDinero());
-                                        movDineroVuelto.add(mov);
+                                        encontrado = true;
+                                        break;
                                     }
                                 }
-                                
+                                if (!encontrado) {
+                                    MovimientoDinero mov = new MovimientoDinero(1,composicionCaja.getDinero());
+                                    movDineroVuelto.add(mov);
+                                }
                             }
                         }
                     }
                 }
             }
+            
             return movDineroVuelto;
     }
 

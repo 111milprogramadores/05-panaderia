@@ -55,4 +55,10 @@ public class UnidadMedida {
     public void setSimbolo(String simbolo) {
         this.simbolo = simbolo;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
 }

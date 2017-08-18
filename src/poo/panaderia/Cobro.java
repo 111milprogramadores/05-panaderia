@@ -5,7 +5,6 @@
  */
 package poo.panaderia;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.List;
  * @author Candelaria
  */
 public class Cobro {
+    
     private List<MovimientoDinero> dineroRecibido;
     private List<DetalleProductoCobrado> detalleCobro;
 
@@ -31,7 +31,7 @@ public class Cobro {
      * @param dineroRecibido
      * @param detalleCobro
     */
-    public Cobro(ArrayList<MovimientoDinero> dineroRecibido, ArrayList<DetalleProductoCobrado> detalleCobro) {
+    public Cobro (List<MovimientoDinero> dineroRecibido, List<DetalleProductoCobrado> detalleCobro) {
         this.dineroRecibido = dineroRecibido;
         this.detalleCobro = detalleCobro;
     }

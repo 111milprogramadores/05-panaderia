@@ -10,9 +10,11 @@ package poo.panaderia;
  * @author Candelaria
  */
 public class Dinero implements Comparable<Dinero> {
+    
     private String denominacion;
     private boolean esMoneda;
     private float valor;
+    private String rutaFoto;
 
     /**
     * Constructor por Defecto.
@@ -29,6 +31,19 @@ public class Dinero implements Comparable<Dinero> {
         this.denominacion = denominacion;
         this.esMoneda = esMoneda;
         this.valor = valor;
+    }
+    
+    /** Constructor con parámetros, sin incluir atributos referenciales.
+     * @param denominacion       
+     * @param esMoneda       
+     * @param valor       
+     * @param rutaFoto       
+    */
+    public Dinero(String denominacion, boolean esMoneda, float valor, String rutaFoto) {
+        this.denominacion = denominacion;
+        this.esMoneda = esMoneda;
+        this.valor = valor;
+        this.rutaFoto = rutaFoto;
     }
 
     public String getDenominacion() {
@@ -55,6 +70,14 @@ public class Dinero implements Comparable<Dinero> {
         this.valor = valor;
     }
 
+    public String getRutaFoto() {
+        return rutaFoto;
+    }
+
+    public void setRutaFoto(String rutaFoto) {
+        this.rutaFoto = rutaFoto;
+    }
+
     @Override
     public int compareTo(Dinero d) {
           if (d.getValor()== this.getValor())
@@ -72,6 +95,11 @@ public class Dinero implements Comparable<Dinero> {
         Dinero d = new Dinero();
         d = (Dinero)obj;
         return d.getValor()==this.getValor() && d.isEsMoneda()== this.isEsMoneda();
+    }
+
+    @Override
+    public String toString() {
+        return denominacion + ", foto: " + rutaFoto;
     }
     
 }

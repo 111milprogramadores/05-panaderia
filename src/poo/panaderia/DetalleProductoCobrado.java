@@ -12,7 +12,8 @@ import java.math.BigDecimal;
  * @author Candelaria
  */
 public class DetalleProductoCobrado {
-    private int cantidad;
+
+    private Integer cantidad;
     private BigDecimal monto;
     private Producto producto;
 
@@ -28,17 +29,17 @@ public class DetalleProductoCobrado {
      * @param monto     
      * @param producto     
     */
-    public DetalleProductoCobrado(int cantidad, BigDecimal monto, Producto producto) {
+    public DetalleProductoCobrado(Integer cantidad, BigDecimal monto, Producto producto) {
         this.cantidad = cantidad;
         this.monto = monto;
         this.producto = producto;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -59,8 +60,14 @@ public class DetalleProductoCobrado {
     }
     
     public BigDecimal calcularSubTotal() {
-         double subtotal= producto.getPrecio().doubleValue()* this.cantidad;
-         return BigDecimal.valueOf(subtotal);
+        double subtotal = producto.getPrecio().doubleValue();
+        
+        // si tiene cantidad (venta por unidad)
+        if (this.cantidad != null) {
+            subtotal = producto.getPrecio().doubleValue() * this.cantidad;
+        }
+        
+        return BigDecimal.valueOf(subtotal);
     }
 
     @Override
