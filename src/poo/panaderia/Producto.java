@@ -13,6 +13,7 @@ import java.math.BigDecimal;
  */
 public class Producto {
     
+    private Integer id;
     private String descripcion;
     private String nombre;
     private BigDecimal precio;
@@ -65,6 +66,14 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.rutaFoto = rutaFoto;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getDescripcion() {

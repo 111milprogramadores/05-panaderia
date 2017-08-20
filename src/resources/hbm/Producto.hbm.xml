@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="poo.panaderia.Producto" table="Producto">
+      <id name="id" column="id_producto">
+          <generator class="increment"/>
+      </id>
+      <property name="descripcion" />
+      <property name="nombre" />
+      <property name="precio" type="java.math.BigDecimal" />
+      <property name="rutaFoto" />
+      
+      <many-to-one name="unidadMedida" class="poo.panaderia.UnidadMedida" column="id_unidad_medida" not-null="true" lazy="false"></many-to-one>
+  </class>
+</hibernate-mapping>

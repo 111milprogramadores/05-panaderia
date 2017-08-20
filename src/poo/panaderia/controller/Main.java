@@ -5,20 +5,17 @@
  */
 package poo.panaderia.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import poo.panaderia.Caja;
-import poo.panaderia.Cobro;
 import poo.panaderia.ComposicionCaja;
-import poo.panaderia.DetalleProductoCobrado;
-import poo.panaderia.Dinero;
-import poo.panaderia.MovimientoDinero;
-import poo.panaderia.Producto;
 import poo.panaderia.dao.DinerosDao;
-import poo.panaderia.dao.DinerosDaoImpl;
+import poo.panaderia.dao.DinerosDaoHibernateImpl;
 import poo.panaderia.dao.ProductosDao;
-import poo.panaderia.dao.ProductosDaoImpl;
+import poo.panaderia.dao.ProductosDaoHibernateImpl;
 
 /**
  *
@@ -31,9 +28,26 @@ public class Main {
      */
     public static void main(String[] args) {
         
+        SessionFactory sessionFactory = null;
+        
+        // A SessionFactory is set up once for an application!
+	final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+			.configure("resources/hibernate.cfg.xml") // configures settings from hibernate.cfg.xml
+			.build();
+	try {
+            sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+	}
+	catch (Exception e) {
+            // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
+            // so destroy it manually.
+            StandardServiceRegistryBuilder.destroy( registry );
+            
+            throw e;
+	}
+        
         // inicializamos las capas de acceso a datos
-        ProductosDao productosDao = new ProductosDaoImpl();
-        DinerosDao dinerosDao = new DinerosDaoImpl();
+        ProductosDao productosDao = new ProductosDaoHibernateImpl(sessionFactory);
+        DinerosDao dinerosDao = new DinerosDaoHibernateImpl(sessionFactory);
         
         // seteamos la composición de la caja con 10 billetes de 10        
         ArrayList<ComposicionCaja> composiciones = new ArrayList<>();

@@ -11,6 +11,7 @@ package poo.panaderia;
  */
 public class Dinero implements Comparable<Dinero> {
     
+    private Integer id;
     private String denominacion;
     private boolean esMoneda;
     private float valor;
@@ -44,6 +45,14 @@ public class Dinero implements Comparable<Dinero> {
         this.esMoneda = esMoneda;
         this.valor = valor;
         this.rutaFoto = rutaFoto;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getDenominacion() {

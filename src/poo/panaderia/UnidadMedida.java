@@ -10,6 +10,8 @@ package poo.panaderia;
  * @author Candelaria
  */
 public class UnidadMedida {
+    
+    private Integer id;
     private String abreviatura;
     private String nombre;
     private String simbolo;
@@ -30,6 +32,14 @@ public class UnidadMedida {
         this.abreviatura = abreviatura;
         this.nombre = nombre;
         this.simbolo = simbolo;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getAbreviatura() {

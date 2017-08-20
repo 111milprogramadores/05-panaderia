@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="poo.panaderia.Dinero" table="Dinero">
+      <id name="id" column="id_dinero">
+          <generator class="increment"/>
+      </id>
+      <property name="denominacion" />
+      <property name="esMoneda" column="es_moneda" type="boolean" />
+      <property name="valor" />
+      <property name="rutaFoto" />
+  </class>
+</hibernate-mapping>
