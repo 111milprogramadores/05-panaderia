@@ -8,6 +8,6 @@
       <property name="denominacion" />
       <property name="esMoneda" column="es_moneda" type="boolean" />
       <property name="valor" />
-      <property name="rutaFoto" />
+      <property name="rutaFoto" column="ruta_foto" />
   </class>
 </hibernate-mapping>

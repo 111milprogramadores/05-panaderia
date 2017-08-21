@@ -75,7 +75,7 @@ public class Dinero implements Comparable<Dinero> {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(float valor) {
         this.valor = valor;
     }
 
